@@ -18,9 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Countdown" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="dxE-UG-6NI">
-                                <rect key="frame" x="110" y="115.33333333333331" width="155" height="37"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Countdown" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxE-UG-6NI">
+                                <rect key="frame" x="16" y="114.66666666666667" width="343" height="38.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -40,6 +40,8 @@
                             <constraint firstItem="0nZ-1y-bjq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="H8q-c3-cvt"/>
                             <constraint firstItem="dxE-UG-6NI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IMa-s5-L8B"/>
                             <constraint firstItem="dxE-UG-6NI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.33" id="T4H-Ih-0dB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dxE-UG-6NI" secondAttribute="trailing" constant="16" id="bQB-MI-a2p"/>
+                            <constraint firstItem="dxE-UG-6NI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hcs-Y9-ARi"/>
                             <constraint firstItem="0nZ-1y-bjq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-5" id="y65-uj-e03"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
