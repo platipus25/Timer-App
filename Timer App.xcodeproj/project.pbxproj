@@ -146,9 +146,11 @@
 				TargetAttributes = {
 					39F3998F2109717E0028BC8D = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					39F399A3210971820028BC8D = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = 39F3998F2109717E0028BC8D;
 					};
 				};
@@ -367,7 +369,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.platipus25.Timer-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -385,7 +387,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.platipus25.Timer-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -404,7 +406,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.platipus25.Timer-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Timer App.app/Timer App";
 			};
@@ -424,7 +426,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.platipus25.Timer-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Timer App.app/Timer App";
 			};

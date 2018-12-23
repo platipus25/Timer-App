@@ -3,6 +3,7 @@ import Foundation
 var now = Date()
 let calendar = Calendar.current
 var timerInterval : DateInterval? = nil
+var countdownAlarmTimer : Timer? = nil
 
 var futureDate: Date? = nil
 
@@ -22,4 +23,7 @@ print(dateFormatter.string(from: futureDate!))
 
 timerInterval = DateInterval(start: now, end: futureDate!)
 
+
 print(timerInterval!.duration)
+
+countdownAlarmTimer = Timer
