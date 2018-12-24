@@ -41,10 +41,7 @@ class Alarm {
             guard let duration = durationFormatter.string(from: DateInterval(start: Date(), end: endDate).duration) else {return}
             show(duration)
             print(duration)
-        }else if(Date() == endDate){
-            
         }else {
-            show("Countdown")
             self.cleanup(self)
         }
     }
@@ -91,12 +88,13 @@ class ViewController : UIViewController {
     func alarmCleanup(alarm: Alarm) {
         alarm.cancel()
         self.alarm = nil
-        self.setDefaultValue()
+        show(text: self.setDefaultValue())
     }
     
-    func setDefaultValue(){
-        if(alarm != nil){ return }
+    func setDefaultValue() -> String{
         
+        print("default value")
+        return "Countdown"
     }
     
     override func viewDidLoad() {
@@ -124,7 +122,7 @@ class ViewController : UIViewController {
                 let content = UNMutableNotificationContent()
                 content.title = title
                 content.body = body
-                content.sound = UNNotificationSound.default
+                content.sound = /*UNNotificationSound(named: UNNotificationSoundName("notification"))*/UNNotificationSound.default
                 let dateComponents = self.calendar.dateComponents(Set<Calendar.Component>([.hour, .minute]), from: date)
                 let trigger = UNCalendarNotificationTrigger(
                     dateMatching: dateComponents, repeats: false)
