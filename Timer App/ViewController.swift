@@ -124,8 +124,7 @@ class ViewController : UIViewController {
                 content.body = body
                 content.sound = /*UNNotificationSound(named: UNNotificationSoundName("notification"))*/UNNotificationSound.default
                 let dateComponents = self.calendar.dateComponents(Set<Calendar.Component>([.hour, .minute]), from: date)
-                let trigger = UNCalendarNotificationTrigger(
-                    dateMatching: dateComponents, repeats: false)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
                 // Create the request
                 let uuidString = UUID().uuidString
                 let request = UNNotificationRequest(identifier: uuidString,
