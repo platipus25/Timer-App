@@ -10,15 +10,161 @@ import UIKit
 import Foundation
 import UserNotifications
 
+class Alarm {
+    let durationFormatter = DateComponentsFormatter()
+    let dateFormatter = DateFormatter()
+    let uuid: String
+    let endDate: Date
+    let show:  (String) -> Void
+    let cleanup: (Alarm) -> Void
+    var alarmTimer: Timer? = nil
+    
+    init(endDate: Date, notification: (String, String, Date) -> String, show: @escaping (String) -> Void, cleanup: @escaping (Alarm) -> Void){
+        self.endDate = endDate
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        durationFormatter.unitsStyle = .short
+        durationFormatter.includesApproximationPhrase = false//true
+        durationFormatter.includesTimeRemainingPhrase = false//true
+        durationFormatter.allowedUnits = [.day, .hour, .minute, .second]
+        durationFormatter.maximumUnitCount = 2
+        self.show =  show
+        self.cleanup = cleanup
+        self.uuid = notification("Alarm Done", dateFormatter.string(from:endDate), endDate)
+        
+        updateTime(timer: nil)
+        alarmTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: updateTime)
+    }
+    
+    func updateTime(timer: Timer?){
+        if(Date() < endDate){
+            guard let duration = durationFormatter.string(from: DateInterval(start: Date(), end: endDate).duration) else {return}
+            show(duration)
+            print(duration)
+        }else if(Date() == endDate){
+            
+        }else {
+            show("Countdown")
+            self.cleanup(self)
+        }
+    }
+    
+    func cancel(){
+        alarmTimer?.invalidate()
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [uuid])
+    }
+}
+
 class ViewController : UIViewController {
+    let calendar = Calendar.current
+    var futureDate: Date? = nil
+    var alarm: Alarm? = nil
+    var uuidString: String? = nil //
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    var timerInterval: TimeInterval?  {
+        get {
+            if let date = futureDate{
+                if(date > Date()){
+                    return DateInterval(start: Date(), end: date).duration
+                }else{
+                    return nil
+                }
+            }
+            return nil
+        }
+    }
+    
+    @IBAction func datePickerHandler(_ sender: UIDatePicker) {
+        let hourAndMinuteComponent = calendar.dateComponents(Set<Calendar.Component>([.hour, .minute]), from: sender.date)
+        
+        futureDate = calendar.nextDate(after:Date(), matching:hourAndMinuteComponent, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
+        
+        alarm?.cancel()
+        alarm = Alarm(endDate: futureDate ?? Date(), notification: self.configureNotification, show: show, cleanup: alarmCleanup)
+    }
+    
+    func show(text: String){
+        titleLabel.text = text
+    }
+    
+    func alarmCleanup(alarm: Alarm) {
+        alarm.cancel()
+        self.alarm = nil
+        self.setDefaultValue()
+    }
+    
+    func setDefaultValue(){
+        if(alarm != nil){ return }
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        let center = UNUserNotificationCenter.current()
+        // Request permission to display alerts and play sounds.
+        center.requestAuthorization(options: [.alert, .sound])
+        { (granted, error) in
+            // Enable or disable features based on authorization.
+        }
+        
+        print("hello world")
+    }
+    
+    func configureNotification(title: String, body: String, date: Date) -> String {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { (settings) in
+            // Do not schedule notifications if not authorized.
+            guard settings.authorizationStatus == .authorized else {return}
+            
+            if settings.alertSetting == .enabled {
+                // Schedule an alert-only notification.
+                let content = UNMutableNotificationContent()
+                content.title = title
+                content.body = body
+                content.sound = UNNotificationSound.default
+                let dateComponents = self.calendar.dateComponents(Set<Calendar.Component>([.hour, .minute]), from: date)
+                let trigger = UNCalendarNotificationTrigger(
+                    dateMatching: dateComponents, repeats: false)
+                // Create the request
+                let uuidString = UUID().uuidString
+                let request = UNNotificationRequest(identifier: uuidString,
+                                                    content: content, trigger: trigger)
+                print(request)
+                // Schedule the request with the system.
+                let notificationCenter = UNUserNotificationCenter.current()
+                notificationCenter.add(request) { (error) in
+                    if error != nil {
+                        // Handle any errors.
+                        print(error!)
+                    }
+                }
+                self.uuidString = uuidString
+            }
+        }
+        return (uuidString ?? "")
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+}
+
+
+/*class ViewController : UIViewController {
     
     let calendar = Calendar.current
     var futureDate: Date? = nil
-    let dateFormatter = DateFormatter()
-    var timer: Timer? = nil
-    var timeLeftTimer: Timer? = nil
-    let durationFormatter = DateComponentsFormatter()
-    var notificationUUID: String? = nil;
+    let dateFormatter = DateFormatter() //
+    var timer: Timer? = nil //
+    var timeLeftTimer: Timer? = nil //
+    let durationFormatter = DateComponentsFormatter() //
+    var notificationUUID: String? = nil; //
     var timerInterval: TimeInterval?  {
         get {
             if let date = futureDate{
@@ -83,7 +229,6 @@ class ViewController : UIViewController {
             print(dateFormatter.string(from: date))
         }
         
-        
         updateTimeRemaining()
         configureNotification(title: "Timer Done", body: "It's "+dateFormatter.string(from:futureDate ?? Date()), date:futureDate ?? Date())
         timeLeftTimer?.invalidate()
@@ -136,3 +281,4 @@ class ViewController : UIViewController {
     }
 
 }
+*/
