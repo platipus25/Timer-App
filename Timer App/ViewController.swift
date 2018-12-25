@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import UserNotifications
+import AVFoundation
 
 class Alarm {
     let durationFormatter = DateComponentsFormatter()
@@ -37,13 +38,19 @@ class Alarm {
     }
     
     func updateTime(timer: Timer?){
+        var duration: TimeInterval?
         if(Date() < endDate){
-            guard let duration = durationFormatter.string(from: DateInterval(start: Date(), end: endDate).duration) else {return}
-            show(duration)
-            print(duration)
-        }else {
-            self.cleanup(self)
+            duration = DateInterval(start: Date(), end: endDate).duration
         }
+
+        if((duration ?? 0) < 1.0){
+            self.cleanup(self)
+            return
+        }
+        
+        guard let durationString = durationFormatter.string(from: duration ?? 0) else {return}
+        show(durationString)
+        print(durationString)
     }
     
     func cancel(){
@@ -86,15 +93,17 @@ class ViewController : UIViewController {
     }
     
     func alarmCleanup(alarm: Alarm) {
+        inAppNotification()
+        print("Cleaning Up")
         alarm.cancel()
         self.alarm = nil
-        show(text: self.setDefaultValue())
+        show(text: "Countdown")
     }
     
-    func setDefaultValue() -> String{
-        
-        print("default value")
-        return "Countdown"
+    func inAppNotification(){
+        let systemSoundID: SystemSoundID = 1307 // Input : https://github.com/TUNER88/iOSSystemSoundsLibrary
+        // to play sound
+        AudioServicesPlaySystemSound (systemSoundID)
     }
     
     override func viewDidLoad() {
@@ -105,6 +114,7 @@ class ViewController : UIViewController {
         // Request permission to display alerts and play sounds.
         center.requestAuthorization(options: [.alert, .sound])
         { (granted, error) in
+            print("Authorized: \(granted) Errors: \(String(describing: error))")
             // Enable or disable features based on authorization.
         }
         
@@ -122,7 +132,7 @@ class ViewController : UIViewController {
                 let content = UNMutableNotificationContent()
                 content.title = title
                 content.body = body
-                content.sound = /*UNNotificationSound(named: UNNotificationSoundName("notification"))*/UNNotificationSound.default
+                content.sound = UNNotificationSound.default
                 let dateComponents = self.calendar.dateComponents(Set<Calendar.Component>([.hour, .minute]), from: date)
                 let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
                 // Create the request
