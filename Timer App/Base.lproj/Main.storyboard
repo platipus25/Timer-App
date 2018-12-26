@@ -18,6 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background3" translatesAutoresizingMaskIntoConstraints="NO" id="ber-OC-CLw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
+                            </imageView>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0nZ-1y-bjq">
                                 <rect key="frame" x="0.0" y="303" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="554772557.40073204">
@@ -61,17 +67,24 @@
                                 </connections>
                             </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" red="0.30635651419643678" green="0.57613719703679711" blue="0.80254600253807107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.30635651419999999" green="0.57613719699999999" blue="0.80254600249999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="krf-WV-cbk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="6Jp-PT-hsC"/>
                             <constraint firstItem="krf-WV-cbk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A8d-tF-hLg"/>
+                            <constraint firstItem="ber-OC-CLw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DyF-Yj-M0n"/>
+                            <constraint firstItem="ber-OC-CLw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EE6-Gz-MUj"/>
                             <constraint firstItem="0nZ-1y-bjq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="H8q-c3-cvt"/>
                             <constraint firstItem="krf-WV-cbk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.33" id="PI2-D6-Tdx"/>
+                            <constraint firstItem="ber-OC-CLw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="XbT-KT-HUQ"/>
+                            <constraint firstAttribute="trailing" secondItem="ber-OC-CLw" secondAttribute="trailing" id="XgE-MM-Z8F"/>
+                            <constraint firstItem="ber-OC-CLw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="aNt-Jn-Zmd"/>
                             <constraint firstItem="eVv-0t-FoV" firstAttribute="top" secondItem="0nZ-1y-bjq" secondAttribute="bottom" constant="8" id="cHh-jw-OW8"/>
+                            <constraint firstItem="0nZ-1y-bjq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d4C-Rj-wMY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="krf-WV-cbk" secondAttribute="trailing" constant="16" id="eLu-DY-Dtd"/>
                             <constraint firstItem="eVv-0t-FoV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="exG-Hg-1wI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0nZ-1y-bjq" secondAttribute="trailing" id="ogL-LZ-5Ds"/>
+                            <constraint firstAttribute="bottom" secondItem="ber-OC-CLw" secondAttribute="bottom" id="lzO-Ya-s2L"/>
+                            <constraint firstAttribute="trailing" secondItem="0nZ-1y-bjq" secondAttribute="trailing" id="ogL-LZ-5Ds"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eVv-0t-FoV" secondAttribute="trailing" constant="16" id="ok5-Ah-AbL"/>
                             <constraint firstItem="0nZ-1y-bjq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="y65-uj-e03"/>
                         </constraints>
@@ -84,7 +97,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="121.18226600985223"/>
+            <point key="canvasLocation" x="115.27093596059113" y="120.8"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Background3" width="800" height="1200"/>
+    </resources>
 </document>
