@@ -49,6 +49,17 @@
                                     <constraint firstItem="dxE-UG-6NI" firstAttribute="leading" secondItem="krf-WV-cbk" secondAttribute="leading" id="u6l-Q6-XxT"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eVv-0t-FoV">
+                                <rect key="frame" x="16" y="527" width="343" height="29"/>
+                                <segments>
+                                    <segment title="Time of Day"/>
+                                    <segment title="Duration"/>
+                                </segments>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="onModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="vOP-EX-i7Z"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.30635651419643678" green="0.57613719703679711" blue="0.80254600253807107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,8 +68,11 @@
                             <constraint firstItem="krf-WV-cbk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A8d-tF-hLg"/>
                             <constraint firstItem="0nZ-1y-bjq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="H8q-c3-cvt"/>
                             <constraint firstItem="krf-WV-cbk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.33" id="PI2-D6-Tdx"/>
+                            <constraint firstItem="eVv-0t-FoV" firstAttribute="top" secondItem="0nZ-1y-bjq" secondAttribute="bottom" constant="8" id="cHh-jw-OW8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="krf-WV-cbk" secondAttribute="trailing" constant="16" id="eLu-DY-Dtd"/>
+                            <constraint firstItem="eVv-0t-FoV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="exG-Hg-1wI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0nZ-1y-bjq" secondAttribute="trailing" id="ogL-LZ-5Ds"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eVv-0t-FoV" secondAttribute="trailing" constant="16" id="ok5-Ah-AbL"/>
                             <constraint firstItem="0nZ-1y-bjq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="y65-uj-e03"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
