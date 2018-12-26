@@ -16,12 +16,10 @@ class Alarm {
     let dateFormatter = DateFormatter()
     let uuid: String
     let endDate: Date
-    let show:  (String) -> Void
-    let cleanup: (Alarm) -> Void
+    let viewController: ViewController
     var alarmTimer: Timer? = nil
     
-    init(endDate: Date, notification: (String, String, Date) -> String, show: @escaping (String) -> Void, cleanup: @escaping (Alarm) -> Void){
-        self.endDate = endDate
+    init(endDate: Date, viewController: ViewController){
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         durationFormatter.unitsStyle = .short
@@ -29,9 +27,9 @@ class Alarm {
         durationFormatter.includesTimeRemainingPhrase = false//true
         durationFormatter.allowedUnits = [.day, .hour, .minute, .second]
         durationFormatter.maximumUnitCount = 2
-        self.show =  show
-        self.cleanup = cleanup
-        self.uuid = notification("Alarm Done", dateFormatter.string(from:endDate), endDate)
+        self.endDate = endDate
+        self.viewController = viewController
+        self.uuid = viewController.configureNotification(title: "Alarm Done", body: dateFormatter.string(from:endDate), date: endDate)
         
         updateTime(timer: nil)
         alarmTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: updateTime)
@@ -44,12 +42,13 @@ class Alarm {
         }
 
         if((duration ?? 0) < 1.0){
-            self.cleanup(self)
+            self.viewController.inAppNotification()
+            self.viewController.alarmCleanup()
             return
         }
         
         guard let durationString = durationFormatter.string(from: duration ?? 0) else {return}
-        show(durationString)
+        self.viewController.show(text: durationString)
         print(durationString)
     }
     
@@ -89,24 +88,23 @@ class ViewController : UIViewController {
         }
         
         alarm?.cancel()
-        alarm = Alarm(endDate: futureDate ?? Date(), notification: self.configureNotification, show: show, cleanup: alarmCleanup)
+        alarm = Alarm(endDate: futureDate ?? Date(), viewController: self)
     }
     
     @IBAction func onModeChanged(_ sender: UISegmentedControl) {
         let currentSegment = sender.selectedSegmentIndex
         let segmentMapper: [UIDatePicker.Mode] = [.time, .countDownTimer]
         datePicker?.datePickerMode = segmentMapper[currentSegment]
+        alarmCleanup()
     }
-    
     
     func show(text: String){
         titleLabel.text = text
     }
     
-    func alarmCleanup(alarm: Alarm) {
-        inAppNotification()
+    func alarmCleanup() {
         print("Cleaning Up")
-        alarm.cancel()
+        self.alarm?.cancel()
         self.alarm = nil
         show(text: "Countdown")
     }
